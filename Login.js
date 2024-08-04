@@ -1,3 +1,5 @@
+console.log("hi there im working!");
+
 const mysql = require("mysql");
 const express = require("express");
 const cors = require("cors");
@@ -19,7 +21,10 @@ app.use((req, res, next) => {
     next();
 });
 
+console.log("hi there im still working!");
+
 app.post("/", (req, res) => {
+    console.log("inside the app");
     const usernameValue = req.body.usernameValue;
     const passwordValue = req.body.passwordValue;
     var userData;
