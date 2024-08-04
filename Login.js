@@ -6,7 +6,11 @@ const app = express();
 const port = 7003;
 
 app.use(express.json());
-app.use(cors({ origin: "*" }));
+app.use(cors({
+    origin: "https://darttgoblin.github.io/Whisper/Login.html",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"]
+}));
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -21,10 +25,10 @@ app.post("/", (req, res) => {
     var userData;
 
     const connection = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'whisperdb'
+        host: 'sql210.infinityfree.com',
+        user: 'if0_37015726',
+        password: 'Q8gUBnSRW3yloQZ',
+        database: 'if0_37015726_whisper'
     });
 
     connection.connect((err) => {
