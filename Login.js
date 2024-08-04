@@ -7,15 +7,15 @@ const port = 7003;
 
 app.use(express.json());
 app.use(cors({
-    origin: "https://darttgoblin.github.io/Whisper/Login.html",
+    origin: "https://darttgoblin.github.io",
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"]
 }));
 
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', 'https://darttgoblin.github.io');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.removeHeader('Permissions-Policy');
+    res.removeHeader('Permissions-Policy'); // This line removes the Permissions-Policy header
     next();
 });
 
