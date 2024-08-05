@@ -27,10 +27,10 @@ app.post("/", (req, res) => {
     const passwordValue = req.body.passwordValue;
 
     const connection = mysql.createConnection({
-        host: 'sql210.infinityfree.com',
-        user: 'if0_37015726',
-        password: 'Q8gUBnSRW3yloQZ',
-        database: 'if0_37015726_whisper'
+        host: 'sql7.freesqldatabase.com',
+        user: 'sql7724126',
+        password: 'V6PCDXyNdv',
+        database: 'sql7724126'
     });
 
     connection.connect((err) => {
