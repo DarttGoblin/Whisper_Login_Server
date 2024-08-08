@@ -19,40 +19,39 @@ app.use((req, res, next) => {
     next();
 });
 
-console.log("Server is starting...");
+const pool = mysql.createPool({
+    connectionLimit: 10,
+    host: 'sql7.freesqldatabase.com',
+    user: 'sql7724126',
+    password: 'V6PCDXyNdv',
+    database: 'sql7724126'
+});
 
 app.post("/", (req, res) => {
-    console.log("Received a POST request");
     const usernameValue = req.body.usernameValue;
     const passwordValue = req.body.passwordValue;
 
-    const connection = mysql.createConnection({
-        host: 'sql7.freesqldatabase.com',
-        user: 'sql7724126',
-        password: 'V6PCDXyNdv',
-        database: 'sql7724126'
-    });
-
-    connection.connect((err) => {
+    pool.getConnection((err, connection) => {
         if (err) {
-            console.error('Error connecting to database: ' + err.stack);
+            console.error('Error getting database connection: ' + err.stack);
             res.status(500).json({ success: false, error: "Error connecting to the database" });
             return;
         }
         console.log('Connected to database with connection id ' + connection.threadId);
 
         connection.query('SELECT * FROM users WHERE username = ? AND passw = ?', [usernameValue, passwordValue], (error, results) => {
+            connection.release();
+
             if (error) {
-                console.log('Query error: ' + error.stack);
+                console.error('Query error: ' + error.stack);
                 res.status(500).json({ success: false, error: error.stack });
                 return;
             }
             if (results.length > 0) {
                 const userData = results[0];
                 res.status(200).json({ success: true, userData });
-            } else {
-                res.status(200).json({ success: false, error: "No user has been found!" });
             }
+            else {res.status(200).json({ success: false, error: "No user has been found!" });}
         });
     });
 });
